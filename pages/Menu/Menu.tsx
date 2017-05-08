@@ -4,19 +4,21 @@ import {  Select } from 'antd'
 import ItemActions = require('../../actions/ResourceCommon/CommonAction')
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { getDataByActionIDWithQueryAsync } from '../../externalCommon/ajax/AjaxUtil'
+import * as ActionTypes from '../../actions/ResourceCommon/CommonActionTypes'
+
+const Option = Select.Option;
 
 const REGION_LIST = [
     {
-        regionID: 32,
-        regionName: '海南省',
+        regionID: 3,
+        regionName: "海南省"
     },
     {
-        regionID: 35,
-        regionName: '海口市'
+        regionID: 5,
+        regionName: "海口市"
     }
 ];
-
-const Option = Select.Option;
 
 class Menu extends React.Component<any,any>
 {
@@ -33,6 +35,20 @@ class Menu extends React.Component<any,any>
         var regionInfo = REGION_LIST[0];
 
         this.setState({regionID: regionInfo.regionID + ""});
+
+        this.queryRegion();
+    }
+
+    queryRegion()
+    {
+        var success = function( data ) {
+            console.log( data );
+
+        }, fail = function() {
+
+        };
+
+        getDataByActionIDWithQueryAsync( ActionTypes.QUERY_REGION_INFO, {}, success, fail, fail )
     }
 
     getMenuList()
