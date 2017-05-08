@@ -1,0 +1,1 @@
+export const CHANGE_REGION_INFO = 'CHANGE_REGION_INFO';
