@@ -7,22 +7,43 @@ import { createInitStore } from '../common/ReduxUtil'
 
 function getEnterIndexRouter( nextState, replace ) {
     if( nextState.location.pathname === '/' ) {
-        replace('/resource/overview')
+        replace('/resourceLogin/Login')
     }
 }
 
 const routes = {
     path: '/',
-    component: require('../pages/App'),
+    component:'div',
     onEnter: getEnterIndexRouter,
     childRoutes: [
         {
-            path: 'resource/overview',
-            getComponent: ( locaction, cb ) => {
-                require.ensure( [], (require) => {
-                    cb( null, require('../pages/ResourceOverview/Overview') )
-                })
-            }
+            path: 'resourceLogin',
+            component: 'div',
+            childRoutes: [
+                {
+                    path: 'login',
+                    getComponent: ( location, cb ) => {
+                        require.ensure( [], require => {
+                            cb( null, require('../pages/Login/Login'))
+                        })
+                    }
+                }
+            ]
+            
+        },
+        {
+            path: 'resource',
+            component: require('../pages/App'),
+            childRoutes: [
+                {
+                    path: 'overview',
+                    getComponent: ( locaction, cb ) => {
+                        require.ensure( [], (require) => {
+                            cb( null, require('../pages/ResourceOverview/Overview') )
+                        })
+                    }
+                }
+            ]
         }
     ]
 }

@@ -1,11 +1,9 @@
 import * as React from 'react'
 import { MenuConfig } from '../../common/config/MenuConfig'
-import { Anchor, Select } from 'antd'
+import {  Select } from 'antd'
 import ItemActions = require('../../actions/ResourceCommon/CommonAction')
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-
-const Link = Anchor.Link;
 
 const REGION_LIST = [
     {
@@ -47,11 +45,11 @@ class Menu extends React.Component<any,any>
             lis = MenuConfig.map( (menuInfo,idx) => {
                 var { displayName, link, className } = menuInfo;
 
-                return <Link  key={idx} href={link} title={displayName} />
+                return <li key={idx}>{displayName}</li>
             })    
         }
 
-        return lis ? <Anchor className="res-menu">{lis}</Anchor> : "";
+        return lis ? <ul className="res-menu">{lis}</ul> : "";
     }
 
     handleChangeRegion( regionID )
